@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "766537746455",
+    "project_id": "mini-project-alta-sib3-2022",
+    "storage_bucket": "mini-project-alta-sib3-2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766537746455:android:2963c4274da537a91a7452",
+        "android_client_info": {
+          "package_name": "com.example.pekaku_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766537746455-1b3fr7b5qiv7vmeefeoiu7jervhqeptt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr4Oly3pakxeiE7_zzYIkPzSAScWUqv6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766537746455-1b3fr7b5qiv7vmeefeoiu7jervhqeptt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
