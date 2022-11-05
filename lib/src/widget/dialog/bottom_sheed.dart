@@ -8,6 +8,7 @@ Future modalBottomSheed(context, Widget widget) {
         topLeft: Radius.circular(40),
       ),
     ),
+    isScrollControlled: true,
     context: context,
     builder: (context) {
       return widget;

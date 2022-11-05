@@ -5,6 +5,7 @@ import 'package:pekaku_app/src/screen/landing/auth_page/lupa_password_page.dart'
 import 'package:pekaku_app/src/screen/landing/auth_page/login_page.dart';
 import 'package:pekaku_app/src/screen/landing/auth_page/register_page.dart';
 import 'package:pekaku_app/src/screen/landing/splash_screen2.dart';
+import 'package:pekaku_app/src/screen/menu/account/setting/setting_page.dart';
 
 class NavigatorProvider with ChangeNotifier {
   /// navigasi splash 1 ke splash 2
@@ -113,5 +114,16 @@ class NavigatorProvider with ChangeNotifier {
           },
         ),
         (route) => false);
+  }
+
+  /// navigasi dari login ke register
+  void navigasiToSettingProfile(BuildContext context) {
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => const SettingPage(),
+      ),
+    );
+    notifyListeners();
   }
 }

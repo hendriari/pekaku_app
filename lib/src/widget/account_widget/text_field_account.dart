@@ -1,33 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:pekaku_app/src/utils/color.dart';
 
-class ReadOnlyTextFields extends StatelessWidget {
+class TextFormAccount extends StatelessWidget {
   final TextEditingController? controller;
   final Widget? suffixIcon;
+  final bool obscureText;
+  final String? hintText;
+  final TextInputType? keyboardType;
+  final int? maxLines;
+  final int? minLines;
   final String? hint;
-  final Function() onTap;
-  final Widget? label;
   final TextInputAction? textInputAction;
 
-  const ReadOnlyTextFields({
+  const TextFormAccount({
     Key? key,
     this.controller,
     this.suffixIcon,
+    this.keyboardType,
+    this.hintText,
+    this.maxLines,
+    this.minLines,
     this.textInputAction,
-    this.label,
     this.hint,
-    required this.onTap,
+    required this.obscureText,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: MyColor.deepAqua,
+      obscureText: obscureText,
       controller: controller,
-      readOnly: true,
-      onTap: onTap,
+      maxLines: maxLines,
+      minLines: minLines,
+      textInputAction: textInputAction,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
-        label: label,
         hintText: hint,
         hintStyle: Theme.of(context)
             .textTheme

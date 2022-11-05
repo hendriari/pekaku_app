@@ -21,7 +21,7 @@ class TextFormFields extends StatelessWidget {
     this.maxLines,
     this.minLines,
     this.textInputAction,
-    required this.label,
+    this.label,
     required this.obscureText,
   }) : super(key: key);
 

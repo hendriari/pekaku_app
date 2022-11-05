@@ -100,7 +100,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         onTap: () {
                           birthDayPicker(context);
                         },
-                        label: 'Tanggal Lahir',
+                        label: Text(
+                          'Tanggal Lahir',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: MyColor.deepAqua),
+                        ),
                       );
                     }),
                   ),
@@ -121,7 +127,13 @@ class _RegisterPageState extends State<RegisterPage> {
                             const SelectGenderWidget(),
                           );
                         },
-                        label: 'Jenis Kelamin',
+                        label: Text(
+                          'Jenis Kelamin',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: MyColor.deepAqua),
+                        ),
                       );
                     }),
                   ),
