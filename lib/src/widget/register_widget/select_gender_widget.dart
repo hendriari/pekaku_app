@@ -30,7 +30,7 @@ class SelectGenderWidget extends StatelessWidget {
           Consumer<RegisterViewModel>(builder: (context, value, child) {
             return InkWell(
               onTap: () {
-                value.registerJenisKelaminLahirController.text = 'Laki - laki';
+                value.registerJenisKelaminController.text = 'Laki - laki';
                 context.read<NavigatorProvider>().navigasiBack(context);
               },
               child: SizedBox(
@@ -58,7 +58,7 @@ class SelectGenderWidget extends StatelessWidget {
           Consumer<RegisterViewModel>(builder: (context, value, child) {
             return InkWell(
               onTap: () {
-                value.registerJenisKelaminLahirController.text = 'Perempuan';
+                value.registerJenisKelaminController.text = 'Perempuan';
                 context.read<NavigatorProvider>().navigasiBack(context);
               },
               child: SizedBox(

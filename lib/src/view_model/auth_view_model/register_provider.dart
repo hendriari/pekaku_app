@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pekaku_app/src/model/user_model.dart';
 import 'package:pekaku_app/src/view_model/auth_view_model/auth_provider.dart';
 import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provider.dart';
 import 'package:pekaku_app/src/widget/dialog/toast_allert.dart';
@@ -11,23 +12,32 @@ import '../../utils/color.dart';
 class RegisterViewModel with ChangeNotifier {
   AuthViewModel auth = AuthViewModel();
 
+  UserModel userModel = UserModel();
+
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   late bool _scureRegisterPassword = true;
+
   late bool _scureRegisterConfirmPassword = true;
 
   final TextEditingController _registerUsernameController =
       TextEditingController();
+
   final TextEditingController _registerAlamatController =
       TextEditingController();
+
   final TextEditingController _registerTanggalLahirController =
       TextEditingController();
-  final TextEditingController _registerJenisKelaminLahirController =
+
+  final TextEditingController _registerJenisKelaminController =
       TextEditingController();
+
   final TextEditingController _registerEmailController =
       TextEditingController();
+
   final TextEditingController _registerPasswordController =
       TextEditingController();
+
   final TextEditingController _confirmRegisterPasswordController =
       TextEditingController();
 
@@ -41,8 +51,7 @@ class RegisterViewModel with ChangeNotifier {
 
   get registerTanggalLahirController => _registerTanggalLahirController;
 
-  get registerJenisKelaminLahirController =>
-      _registerJenisKelaminLahirController;
+  get registerJenisKelaminController => _registerJenisKelaminController;
 
   get registerEmailController => _registerEmailController;
 
@@ -62,25 +71,18 @@ class RegisterViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  /// user firestore
-  Future<void> userFirestore() async {
-    CollectionReference users = _firestore.collection('users');
-    users.add({
-      'name': _registerUsernameController.text,
-      'kelamin': _registerJenisKelaminLahirController.text,
-      'tanggallahir': _registerTanggalLahirController.text,
-      'alamat': _registerAlamatController.text,
-      'email': _registerEmailController.text,
-    });
-  }
-
-  /// firebase register account
+  /// firebase auth register account
   Future<void> register(context) async {
     try {
-      await auth.authRegister(
-        email: _registerEmailController.text,
-        password: _registerPasswordController.text,
-      );
+      await auth
+          .authRegister(
+              email: _registerEmailController.text,
+              password: _registerPasswordController.text)
+          .then(
+            (value) => {
+              sendUserDetailFirestore(),
+            },
+          );
       toastAllert(
         'Berhasil mendaftar',
         MyColor.deepAqua,
@@ -89,14 +91,13 @@ class RegisterViewModel with ChangeNotifier {
       _registerUsernameController.clear();
       _registerAlamatController.clear();
       _registerTanggalLahirController.clear();
-      _registerJenisKelaminLahirController.clear();
+      _registerJenisKelaminController.clear();
       _registerEmailController.clear();
       _registerPasswordController.clear();
       _confirmRegisterPasswordController.clear();
       Provider.of<NavigatorProvider>(context, listen: false)
           .navigasiCheckLogin(context);
     } on FirebaseAuthException catch (e) {
-      //return toastAllert('${e.message}', MyColor.errorColor, 3);
       if (e.code == 'weak-password') {
         return toastAllert('Password lemah', MyColor.errorColor, 1);
       } else if (e.code == 'email-already-in-use') {
@@ -105,6 +106,24 @@ class RegisterViewModel with ChangeNotifier {
         return toastAllert('${e.message}', MyColor.errorColor, 1);
       }
     }
+  }
+
+  /// send user data ke firestore
+  Future<void> sendUserDetailFirestore() async {
+    final users = auth.currentUser;
+
+    userModel.email = users!.email;
+    userModel.uid = users.uid;
+    userModel.image = '';
+    userModel.name = _registerUsernameController.text;
+    userModel.alamat = _registerAlamatController.text;
+    userModel.tanggallahir = _registerTanggalLahirController.text;
+    userModel.kelamin = _registerJenisKelaminController.text;
+
+    await _firestore
+        .collection('userData')
+        .doc(users.uid)
+        .set(userModel.toMap());
   }
 
   /// check register
@@ -118,7 +137,7 @@ class RegisterViewModel with ChangeNotifier {
       toastAllert('Alamat tidak boleh kosong !', MyColor.errorColor, 1);
     } else if (_registerTanggalLahirController.text.isEmpty) {
       toastAllert('Tanggal lahir tidak boleh kosong !', MyColor.errorColor, 1);
-    } else if (_registerJenisKelaminLahirController.text.isEmpty) {
+    } else if (_registerJenisKelaminController.text.isEmpty) {
       toastAllert('Jenis kelamin tidak boleh kosong !', MyColor.errorColor, 1);
     } else if (_registerPasswordController.text !=
         _confirmRegisterPasswordController.text) {
@@ -132,14 +151,14 @@ class RegisterViewModel with ChangeNotifier {
     }
   }
 
-  /// controller dispose
-  Future<void> disposeTextController() async {
-    _registerUsernameController.dispose();
-    _registerEmailController.dispose();
-    _registerAlamatController.dispose();
-    _registerJenisKelaminLahirController.dispose();
-    _registerTanggalLahirController.dispose();
-    _confirmRegisterPasswordController.dispose();
-    _registerPasswordController.dispose();
-  }
+// /// controller dispose
+// Future<void> disposeTextController() async {
+//   _registerUsernameController.dispose();
+//   _registerEmailController.dispose();
+//   _registerAlamatController.dispose();
+//   _registerJenisKelaminLahirController.dispose();
+//   _registerTanggalLahirController.dispose();
+//   _confirmRegisterPasswordController.dispose();
+//   _registerPasswordController.dispose();
+// }
 }

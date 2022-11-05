@@ -114,7 +114,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Consumer<RegisterViewModel>(
                         builder: (context, value, child) {
                       return ReadOnlyTextFields(
-                        controller: value.registerJenisKelaminLahirController,
+                        controller: value.registerJenisKelaminController,
                         onTap: () {
                           modalBottomSheed(
                             context,
@@ -200,8 +200,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 borderRadius: BorderRadius.circular(40),
                 onPressed: () async {
                   registerProvider.checkBeforeRegister(context);
-                  registerProvider.userFirestore();
-                  registerProvider.dispose();
                 },
                 backgroundColor: MyColor.deepAqua,
                 sizeWidth: sizeWidth * .95,

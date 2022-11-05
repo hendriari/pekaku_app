@@ -61,7 +61,6 @@ class AuthViewModel with ChangeNotifier {
     }
   }
 
-
   /// account loguot
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
