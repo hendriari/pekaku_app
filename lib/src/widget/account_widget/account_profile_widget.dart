@@ -1,6 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pekaku_app/src/model/user_model.dart';
 import 'package:pekaku_app/src/utils/color.dart';
 import 'package:pekaku_app/src/utils/custom_fonts.dart';
 import 'package:pekaku_app/src/view_model/account_view_model/account_provider.dart';
@@ -13,16 +13,31 @@ import 'package:pekaku_app/src/widget/account_widget/text_field_account.dart';
 import 'package:pekaku_app/src/widget/button/button_widget.dart';
 import 'package:pekaku_app/src/widget/dialog/bottom_sheed.dart';
 import 'package:pekaku_app/src/widget/widget/read_only_textfield.dart';
+import 'package:pekaku_app/src/widget/widget/shimmer_widget.dart';
 import 'package:provider/provider.dart';
 
 class AccountProfileWidget extends StatelessWidget {
-  const AccountProfileWidget({Key? key}) : super(key: key);
+  final String imageUser;
+  final String textNameHeader;
+  final String textEmailUser;
+  final String nameTextForm;
+  final String tanggalLahirTextForm;
+  final String jenisKelaminTextForm;
+  final String alamatTextForm;
+
+  const AccountProfileWidget({
+    Key? key,
+    required this.imageUser,
+    required this.textNameHeader,
+    required this.textEmailUser,
+    required this.nameTextForm,
+    required this.tanggalLahirTextForm,
+    required this.jenisKelaminTextForm,
+    required this.alamatTextForm,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final accountProvider =
-        Provider.of<AccountViewModel>(context, listen: false);
-    final UserModel users = accountProvider.userModel;
     final double paddingTop = MediaQuery.of(context).padding.top;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -80,32 +95,55 @@ class AccountProfileWidget extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    InkWell(
-                      onTap: (){},
-                      child: const CircleAvatar(
-                        radius: 50,
-                        backgroundImage: NetworkImage(
-                          'https://cdn1-production-images-kly.akamaized.net/sBbpp2jnXav0YR8a_VVFjMtCCJQ=/1200x1200/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/882764/original/054263300_1432281574-Boruto-Naruto-the-Movie-trailer.jpg',
+                    /// image header
+                    CachedNetworkImage(
+                      imageUrl:
+                          imageUser,
+                      imageBuilder: (context, imageProvider) => InkWell(
+                        onTap: () {
+                          /// show profile image
+                          showProfileImage(context);
+                        },
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundColor: MyColor.marble,
+                          backgroundImage: imageProvider,
                         ),
                       ),
+                      placeholder: (context, url) => ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: const ShimmersLoading(
+                          child: CircleAvatar(
+                            radius: 50,
+                          ),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => const Center(
+                        child: Text('Can\'t load image'),
+                      ),
                     ),
+
                     const SizedBox(
                       width: 10,
                     ),
+
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        /// name user
                         Text(
-                          '${users.name}',
+                          textNameHeader,
                           style: Theme.of(context)
                               .textTheme
                               .headline4!
                               .copyWith(color: MyColor.white),
                           overflow: TextOverflow.ellipsis,
                         ),
+
+                        /// email user
                         Text(
-                          '${users.email}',
+                          textEmailUser,
                           style: Theme.of(context)
                               .textTheme
                               .headline6!
@@ -137,7 +175,7 @@ class AccountProfileWidget extends StatelessWidget {
                     rowWidget(
                       context: context,
                       icon: CupertinoIcons.person,
-                      text: 'Profil',
+                      text: 'Edit Profil',
                       onTap: () {
                         modalBottomSheed(
                           context,
@@ -241,11 +279,24 @@ class AccountProfileWidget extends StatelessWidget {
     );
   }
 
+  /// show image profile
+  Future showProfileImage(context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.all(10),
+            child: Image.network(
+              imageUser,
+            ),
+          );
+        });
+  }
+
   /// widget edit profile
   Widget profileDetail(context) {
     final accountProvider =
         Provider.of<AccountViewModel>(context, listen: false);
-    final UserModel users = accountProvider.userModel;
     final double paddingTop = MediaQuery.of(context).padding.top;
     final double sizeWidth = MediaQuery.of(context).size.width;
     return Padding(
@@ -264,10 +315,27 @@ class AccountProfileWidget extends StatelessWidget {
           ),
 
           /// image profile
-          const CircleAvatar(
-            radius: 70,
-            backgroundImage: NetworkImage(
-              'https://cdn1-production-images-kly.akamaized.net/sBbpp2jnXav0YR8a_VVFjMtCCJQ=/1200x1200/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/882764/original/054263300_1432281574-Boruto-Naruto-the-Movie-trailer.jpg',
+          CachedNetworkImage(
+            imageUrl:
+                'https://cdn3d.iconscout.com/3d/premium/thumb/man-avatar-6299539-5187871.png',
+            imageBuilder: (context, imageProvider) => InkWell(
+              onTap: () {},
+              child: CircleAvatar(
+                radius: 50,
+                backgroundColor: MyColor.marble,
+                backgroundImage: imageProvider,
+              ),
+            ),
+            placeholder: (context, url) => ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: const ShimmersLoading(
+                child: CircleAvatar(
+                  radius: 50,
+                ),
+              ),
+            ),
+            errorWidget: (context, url, error) => const Center(
+              child: Text('Can\'t load image'),
             ),
           ),
 
@@ -277,23 +345,10 @@ class AccountProfileWidget extends StatelessWidget {
 
           /// textfield name
           TextFormAccount(
-            hint: '${users.name}',
+            hint: nameTextForm,
             controller: accountProvider.profileUsernameController,
             obscureText: false,
             textInputAction: TextInputAction.done,
-          ),
-
-          const SizedBox(
-            height: 10,
-          ),
-
-          ///textfield alamat
-          TextFormAccount(
-            hint: '${users.alamat}',
-            controller: accountProvider.profileAlamatController,
-            maxLines: 2,
-            minLines: 1,
-            obscureText: false,
           ),
 
           const SizedBox(
@@ -305,7 +360,7 @@ class AccountProfileWidget extends StatelessWidget {
               /// textfield tanggal lahir
               Flexible(
                 child: ReadOnlyTextFields(
-                  hint: '${users.tanggallahir}',
+                  hint: tanggalLahirTextForm,
                   controller: accountProvider.profileTanggalLahirController,
                   onTap: () {
                     profileBirthDayPicker(context);
@@ -320,7 +375,7 @@ class AccountProfileWidget extends StatelessWidget {
               /// textfield kelamin
               Flexible(
                 child: ReadOnlyTextFields(
-                  hint: '${users.kelamin}',
+                  hint: jenisKelaminTextForm,
                   controller: accountProvider.profileJenisKelaminController,
                   onTap: () {
                     modalBottomSheed(
@@ -337,12 +392,14 @@ class AccountProfileWidget extends StatelessWidget {
             height: 10,
           ),
 
-          ///textfield email
+          ///textfield alamat
           TextFormAccount(
-            hint: '${users.email}',
-            controller: accountProvider.profileEmailController,
-            obscureText: false,
+            hint: alamatTextForm,
+            controller: accountProvider.profileAlamatController,
+            maxLines: 2,
+            minLines: 1,
             textInputAction: TextInputAction.done,
+            obscureText: false,
           ),
 
           const SizedBox(
@@ -352,7 +409,9 @@ class AccountProfileWidget extends StatelessWidget {
           ///button update data
           ButtonWidget(
             borderRadius: BorderRadius.circular(40),
-            onPressed: () async {},
+            onPressed: () async {
+              accountProvider.updateDataUSer(context);
+            },
             backgroundColor: MyColor.deepAqua,
             sizeWidth: sizeWidth * .95,
             child: Text(

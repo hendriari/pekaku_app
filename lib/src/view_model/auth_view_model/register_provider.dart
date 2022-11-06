@@ -97,6 +97,13 @@ class RegisterViewModel with ChangeNotifier {
       _confirmRegisterPasswordController.clear();
       Provider.of<NavigatorProvider>(context, listen: false)
           .navigasiCheckLogin(context);
+      // _registerUsernameController.dispose();
+      // _registerEmailController.dispose();
+      // _registerAlamatController.dispose();
+      // _registerJenisKelaminController.dispose();
+      // _registerTanggalLahirController.dispose();
+      // _confirmRegisterPasswordController.dispose();
+      // _registerPasswordController.dispose();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return toastAllert('Password lemah', MyColor.errorColor, 1);
@@ -114,7 +121,7 @@ class RegisterViewModel with ChangeNotifier {
 
     userModel.email = users!.email;
     userModel.uid = users.uid;
-    userModel.image = '';
+    userModel.image = 'https://cdn3d.iconscout.com/3d/premium/thumb/man-avatar-6299539-5187871.png';
     userModel.name = _registerUsernameController.text;
     userModel.alamat = _registerAlamatController.text;
     userModel.tanggallahir = _registerTanggalLahirController.text;

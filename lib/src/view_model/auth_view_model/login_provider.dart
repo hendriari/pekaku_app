@@ -40,14 +40,16 @@ class LoginViewModel with ChangeNotifier {
       _passwordController.clear();
       Provider.of<NavigatorProvider>(context, listen: false)
           .navigasiCheckLogin(context);
+      // _emailController.dispose();
+      // _passwordController.dispose();
     } on FirebaseAuthException catch (e) {
       return toastAllert('${e.message}', MyColor.errorColor, 3);
     }
   }
 
   /// login controller dispose
-  // Future<void> loginControllerDispose() async {
-  //   _emailController.dispose();
-  //   _passwordController.dispose();
-  // }
+// Future<void> loginControllerDispose() async {
+//   _emailController.dispose();
+//   _passwordController.dispose();
+// }
 }

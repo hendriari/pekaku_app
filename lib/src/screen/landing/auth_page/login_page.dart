@@ -105,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(40),
               onPressed: () async {
                 loginProvider.login(context);
-                //loginProvider.loginControllerDispose();
+                //await loginProvider.loginControllerDispose();
               },
               backgroundColor: MyColor.deepAqua,
               sizeWidth: sizeWidth * .95,

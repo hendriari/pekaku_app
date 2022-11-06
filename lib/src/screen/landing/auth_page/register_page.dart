@@ -80,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFormFields(
                 controller: registerProvider.registerAlamatController,
                 label: 'Alamat',
+                textInputAction: TextInputAction.done,
                 minLines: 1,
                 maxLines: null,
                 obscureText: false,
