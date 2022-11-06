@@ -29,15 +29,18 @@ class EditGenderProfile extends StatelessWidget {
           /// gender laki laki
           Consumer<AccountViewModel>(builder: (context, value, child) {
             return InkWell(
+              borderRadius: BorderRadius.circular(40),
               onTap: () {
                 value.profileJenisKelaminController.text = 'Laki - laki';
                 context.read<NavigatorProvider>().navigasiBack(context);
               },
               child: SizedBox(
-                height: 20,
-                child: Text(
-                  'Laki - Laki',
-                  style: Theme.of(context).textTheme.headline6,
+                height: 40,
+                child: Center(
+                  child: Text(
+                    'Laki - Laki',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                 ),
               ),
             );
@@ -57,14 +60,17 @@ class EditGenderProfile extends StatelessWidget {
           /// gender perempuna
           Consumer<AccountViewModel>(builder: (context, value, child) {
             return InkWell(
+              borderRadius: BorderRadius.circular(40),
               onTap: () {
                 value.profileJenisKelaminController.text = 'Perempuan';
                 context.read<NavigatorProvider>().navigasiBack(context);
               },
               child: SizedBox(
-                height: 20,
-                child: Text('Perempuan',
-                    style: Theme.of(context).textTheme.headline6),
+                height: 40,
+                child: Center(
+                  child: Text('Perempuan',
+                      style: Theme.of(context).textTheme.headline6),
+                ),
               ),
             );
           }),

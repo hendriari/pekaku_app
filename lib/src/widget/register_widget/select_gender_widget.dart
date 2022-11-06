@@ -29,15 +29,18 @@ class SelectGenderWidget extends StatelessWidget {
           /// gender laki laki
           Consumer<RegisterViewModel>(builder: (context, value, child) {
             return InkWell(
+              borderRadius: BorderRadius.circular(40),
               onTap: () {
                 value.registerJenisKelaminController.text = 'Laki - laki';
                 context.read<NavigatorProvider>().navigasiBack(context);
               },
               child: SizedBox(
-                height: 20,
-                child: Text(
-                  'Laki - Laki',
-                  style: Theme.of(context).textTheme.headline6,
+                height: 40,
+                child: Center(
+                  child: Text(
+                    'Laki - Laki',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                 ),
               ),
             );
@@ -57,14 +60,17 @@ class SelectGenderWidget extends StatelessWidget {
           /// gender perempuna
           Consumer<RegisterViewModel>(builder: (context, value, child) {
             return InkWell(
+              borderRadius: BorderRadius.circular(40),
               onTap: () {
                 value.registerJenisKelaminController.text = 'Perempuan';
                 context.read<NavigatorProvider>().navigasiBack(context);
               },
               child: SizedBox(
-                height: 20,
-                child: Text('Perempuan',
-                    style: Theme.of(context).textTheme.headline6),
+                height: 40,
+                child: Center(
+                  child: Text('Perempuan',
+                      style: Theme.of(context).textTheme.headline6),
+                ),
               ),
             );
           }),
