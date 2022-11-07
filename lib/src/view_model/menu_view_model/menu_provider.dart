@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:pekaku_app/src/screen/menu/account/account_page.dart';
-import 'package:pekaku_app/src/screen/menu/create_post/create_post_page.dart';
+import 'package:pekaku_app/src/screen/menu/create_post/post_page.dart';
 import 'package:pekaku_app/src/screen/menu/history/history_page.dart';
 import 'package:pekaku_app/src/screen/menu/home/home_page.dart';
 import 'package:pekaku_app/src/widget/dialog/exit_dialog.dart';
@@ -12,7 +12,7 @@ class MenuViewModel with ChangeNotifier {
 
   final List<Widget> _pages = [
     const HomePage(),
-    const CreatePostPage(),
+    const PostPage(),
     const HistoryPage(),
     const AccountPage(),
   ];

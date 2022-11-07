@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pekaku_app/src/utils/color.dart';
-import 'package:pekaku_app/src/utils/custom_fonts.dart';
 import 'package:pekaku_app/src/view_model/auth_view_model/auth_provider.dart';
+import 'package:pekaku_app/src/widget/widget/text_header.dart';
 import 'package:provider/provider.dart';
 
 class HistoryPage extends StatelessWidget {
@@ -18,11 +17,7 @@ class HistoryPage extends StatelessWidget {
           child: Column(
             children: [
               Center(
-                child: Text(
-                  'Disimpan',
-                  style: CustomFonts.customHeaderText
-                      .copyWith(color: MyColor.deepAqua),
-                ),
+                child: textHeader('Disi','mpan'),
               ),
               ElevatedButton(
                   onPressed: () {

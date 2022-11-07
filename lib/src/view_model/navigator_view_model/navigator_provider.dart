@@ -6,6 +6,8 @@ import 'package:pekaku_app/src/screen/landing/auth_page/login_page.dart';
 import 'package:pekaku_app/src/screen/landing/auth_page/register_page.dart';
 import 'package:pekaku_app/src/screen/landing/splash_screen2.dart';
 import 'package:pekaku_app/src/screen/menu/account/setting/setting_page.dart';
+import 'package:pekaku_app/src/screen/menu/create_post/create_post_page.dart';
+import 'package:pekaku_app/src/widget/create_post_widget/google_maps_widget.dart';
 
 class NavigatorProvider with ChangeNotifier {
   /// navigasi splash 1 ke splash 2
@@ -125,5 +127,41 @@ class NavigatorProvider with ChangeNotifier {
       ),
     );
     notifyListeners();
+  }
+
+  /// navigasi dari page postingan ke buat postingan
+  void navigasiBuatPostingan(context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondAnimation) =>
+            const CreatePostPage(),
+        transitionDuration: const Duration(milliseconds: 1200),
+        transitionsBuilder: (context, animation, secondAnimation, child) {
+          const begin = Offset(0.0, 1.0);
+          const end = Offset.zero;
+          const curve = Curves.linearToEaseOut;
+
+          var tween = Tween(begin: begin, end: end).chain(
+            CurveTween(curve: curve),
+          );
+
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+
+  /// open google maps
+  void navigasiOpenGoogleMaps(context){
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => const GoogleMapsWidget(),
+      ),
+    );
   }
 }

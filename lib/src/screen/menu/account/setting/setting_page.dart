@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pekaku_app/src/utils/color.dart';
-import 'package:pekaku_app/src/utils/custom_fonts.dart';
 import 'package:pekaku_app/src/view_model/account_view_model/account_provider.dart';
 import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provider.dart';
 import 'package:pekaku_app/src/widget/account_widget/row_widget.dart';
@@ -10,6 +9,7 @@ import 'package:pekaku_app/src/widget/account_widget/setting_widget/reset_passwo
 import 'package:pekaku_app/src/widget/button/button_widget.dart';
 import 'package:pekaku_app/src/widget/button/icon_button_widget.dart';
 import 'package:pekaku_app/src/widget/widget/text_field_widget.dart';
+import 'package:pekaku_app/src/widget/widget/text_header.dart';
 import 'package:provider/provider.dart';
 
 class SettingPage extends StatelessWidget {
@@ -41,21 +41,11 @@ class SettingPage extends StatelessWidget {
                 const Spacer(),
 
                 /// textheader
-                RichText(
-                  text: TextSpan(
-                    text: 'set',
-                    style: CustomFonts.customHeaderText
-                        .copyWith(color: MyColor.deepAqua),
-                    children: [
-                      TextSpan(
-                        text: 'tings',
-                        style: CustomFonts.customHeaderText.copyWith(
-                          color: MyColor.deepAqua.withOpacity(.6),
-                        ),
-                      ),
-                    ],
-                  ),
+                textHeader(
+                  'set',
+                  'tings',
                 ),
+
                 const Spacer(),
 
                 const SizedBox(

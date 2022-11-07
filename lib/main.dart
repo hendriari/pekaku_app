@@ -14,6 +14,7 @@ import 'package:pekaku_app/src/view_model/menu_view_model/menu_provider.dart';
 import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provider.dart';
 import 'package:provider/provider.dart';
 import 'src/view_model/account_view_model/account_provider.dart';
+import 'src/view_model/home_view_model/home_provider.dart';
 
 void main() async {
   runApp(const PekakuApp());
@@ -36,6 +37,7 @@ class PekakuApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => RegisterViewModel()),
         ChangeNotifierProvider(create: (_) => ForgotPasswordViewModel()),
         ChangeNotifierProvider(create: (_) => MenuViewModel()),
+        ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => CreatePostViewModel()),
         ChangeNotifierProvider(create: (_) => AccountViewModel()),
       ],

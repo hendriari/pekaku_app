@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pekaku_app/src/utils/color.dart';
-import 'package:pekaku_app/src/utils/custom_fonts.dart';
 import 'package:pekaku_app/src/view_model/account_view_model/account_provider.dart';
 import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provider.dart';
 import 'package:pekaku_app/src/widget/account_widget/edit_birthday_profile.dart';
@@ -14,6 +13,7 @@ import 'package:pekaku_app/src/widget/button/button_widget.dart';
 import 'package:pekaku_app/src/widget/dialog/bottom_sheed.dart';
 import 'package:pekaku_app/src/widget/widget/read_only_textfield.dart';
 import 'package:pekaku_app/src/widget/widget/shimmer_widget.dart';
+import 'package:pekaku_app/src/widget/widget/text_header.dart';
 import 'package:provider/provider.dart';
 
 class AccountProfileWidget extends StatelessWidget {
@@ -47,21 +47,7 @@ class AccountProfileWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             /// text header
-            RichText(
-              text: TextSpan(
-                text: 'Profil',
-                style: CustomFonts.customHeaderText
-                    .copyWith(color: MyColor.deepAqua),
-                children: [
-                  TextSpan(
-                    text: 'ku',
-                    style: CustomFonts.customHeaderText.copyWith(
-                      color: MyColor.deepAqua.withOpacity(.6),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            textHeader('Profil', 'ku'),
 
             /// header profile
             Container(
@@ -97,8 +83,7 @@ class AccountProfileWidget extends StatelessWidget {
                   children: [
                     /// image header
                     CachedNetworkImage(
-                      imageUrl:
-                          imageUser,
+                      imageUrl: imageUser,
                       imageBuilder: (context, imageProvider) => InkWell(
                         onTap: () {
                           /// show profile image
