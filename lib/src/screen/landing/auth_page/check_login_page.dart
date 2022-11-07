@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pekaku_app/src/screen/landing/landing_page.dart';
 import 'package:pekaku_app/src/screen/menu/menu_page.dart';
-import 'package:pekaku_app/src/view_model/auth_view_model/auth_provider.dart';
+import 'package:pekaku_app/src/services/auth_services_provider.dart';
 import 'package:provider/provider.dart';
 
 class CheckLogin extends StatelessWidget {
@@ -9,7 +9,7 @@ class CheckLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthViewModel>(context, listen: false);
+    final authProvider = Provider.of<AuthServicesProvider>(context, listen: false);
     /// check user login
     return StreamBuilder(
       stream: authProvider.authStateChange,

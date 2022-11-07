@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pekaku_app/src/utils/color.dart';
-import 'package:pekaku_app/src/view_model/auth_view_model/register_provider.dart';
+import 'package:pekaku_app/src/services/register_services_provider.dart';
 import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +27,7 @@ class SelectGenderWidget extends StatelessWidget {
           ),
 
           /// gender laki laki
-          Consumer<RegisterViewModel>(builder: (context, value, child) {
+          Consumer<RegisterServices>(builder: (context, value, child) {
             return InkWell(
               borderRadius: BorderRadius.circular(40),
               onTap: () {
@@ -58,7 +58,7 @@ class SelectGenderWidget extends StatelessWidget {
           ),
 
           /// gender perempuna
-          Consumer<RegisterViewModel>(builder: (context, value, child) {
+          Consumer<RegisterServices>(builder: (context, value, child) {
             return InkWell(
               borderRadius: BorderRadius.circular(40),
               onTap: () {

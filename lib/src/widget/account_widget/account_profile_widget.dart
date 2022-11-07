@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pekaku_app/src/utils/color.dart';
 import 'package:pekaku_app/src/view_model/account_view_model/account_provider.dart';
 import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provider.dart';
@@ -39,6 +40,7 @@ class AccountProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double paddingTop = MediaQuery.of(context).padding.top;
+    final double sizeHeight = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Padding(
@@ -162,10 +164,7 @@ class AccountProfileWidget extends StatelessWidget {
                       icon: CupertinoIcons.person,
                       text: 'Edit Profil',
                       onTap: () {
-                        modalBottomSheed(
-                          context,
-                          profileDetail(context),
-                        );
+                        profileDetail(context);
                       },
                     ),
 
@@ -207,7 +206,7 @@ class AccountProfileWidget extends StatelessWidget {
             ),
 
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
 
             /// logout
@@ -228,9 +227,45 @@ class AccountProfileWidget extends StatelessWidget {
                   }),
             ),
 
+            SizedBox(
+              height: sizeHeight * .13,
+            ),
+
+            SizedBox(
+              width: 120,
+              child: Column(
+                children: [
+                  /// nama aplikasi
+                  Text(
+                    'Pekakuy',
+                    style: GoogleFonts.merienda(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 28,
+                        color: MyColor.deepAqua,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: 4,
+                  ),
+
+                  /// versi aplikasi
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      'v 1.0.1',
+                      style: TextStyle(color: MyColor.gray),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             /// batas bawah
-            const SizedBox(
-              height: 75,
+            SizedBox(
+              height: sizeHeight * .13,
             ),
           ],
         ),
@@ -279,136 +314,152 @@ class AccountProfileWidget extends StatelessWidget {
   }
 
   /// widget edit profile
-  Widget profileDetail(context) {
+  Future profileDetail(context) {
     final accountProvider =
         Provider.of<AccountViewModel>(context, listen: false);
     final double paddingTop = MediaQuery.of(context).padding.top;
     final double sizeWidth = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: const EdgeInsets.only(left: 12, right: 12, bottom: 15),
-      child: Column(
-        children: [
-          SizedBox(
-            width: 50,
-            child: Divider(
-              color: MyColor.dark,
-              thickness: 2,
-            ),
+    return showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(40),
+          topLeft: Radius.circular(40),
+        ),
+      ),
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.only(
+            left: 12,
+            right: 12,
+            bottom: 15,
           ),
-          SizedBox(
-            height: paddingTop,
-          ),
-
-          /// image profile
-          CachedNetworkImage(
-            imageUrl:
-                'https://cdn3d.iconscout.com/3d/premium/thumb/man-avatar-6299539-5187871.png',
-            imageBuilder: (context, imageProvider) => InkWell(
-              onTap: () {},
-              child: CircleAvatar(
-                radius: 50,
-                backgroundColor: MyColor.marble,
-                backgroundImage: imageProvider,
-              ),
-            ),
-            placeholder: (context, url) => ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: const ShimmersLoading(
-                child: CircleAvatar(
-                  radius: 50,
+          child: Column(
+            children: [
+              SizedBox(
+                width: 50,
+                child: Divider(
+                  color: MyColor.dark,
+                  thickness: 2,
                 ),
               ),
-            ),
-            errorWidget: (context, url, error) => const Center(
-              child: Text('Can\'t load image'),
-            ),
-          ),
+              SizedBox(
+                height: paddingTop,
+              ),
 
-          const SizedBox(
-            height: 30,
-          ),
-
-          /// textfield name
-          TextFormAccount(
-            hint: nameTextForm,
-            controller: accountProvider.profileUsernameController,
-            obscureText: false,
-            textInputAction: TextInputAction.done,
-          ),
-
-          const SizedBox(
-            height: 10,
-          ),
-
-          Row(
-            children: [
-              /// textfield tanggal lahir
-              Flexible(
-                child: ReadOnlyTextFields(
-                  hint: tanggalLahirTextForm,
-                  controller: accountProvider.profileTanggalLahirController,
-                  onTap: () {
-                    profileBirthDayPicker(context);
-                  },
+              /// image profile
+              CachedNetworkImage(
+                imageUrl:
+                    'https://cdn3d.iconscout.com/3d/premium/thumb/man-avatar-6299539-5187871.png',
+                imageBuilder: (context, imageProvider) => InkWell(
+                  onTap: () {},
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundColor: MyColor.marble,
+                    backgroundImage: imageProvider,
+                  ),
+                ),
+                placeholder: (context, url) => ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: const ShimmersLoading(
+                    child: CircleAvatar(
+                      radius: 50,
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) => const Center(
+                  child: Text('Can\'t load image'),
                 ),
               ),
 
               const SizedBox(
-                width: 7,
+                height: 30,
               ),
 
-              /// textfield kelamin
-              Flexible(
-                child: ReadOnlyTextFields(
-                  hint: jenisKelaminTextForm,
-                  controller: accountProvider.profileJenisKelaminController,
-                  onTap: () {
-                    modalBottomSheed(
-                      context,
-                      const EditGenderProfile(),
-                    );
-                  },
+              /// textfield name
+              TextFormAccount(
+                hint: nameTextForm,
+                controller: accountProvider.profileUsernameController,
+                obscureText: false,
+                textInputAction: TextInputAction.done,
+              ),
+
+              const SizedBox(
+                height: 10,
+              ),
+
+              Row(
+                children: [
+                  /// textfield tanggal lahir
+                  Flexible(
+                    child: ReadOnlyTextFields(
+                      hint: tanggalLahirTextForm,
+                      controller: accountProvider.profileTanggalLahirController,
+                      onTap: () {
+                        profileBirthDayPicker(context);
+                      },
+                    ),
+                  ),
+
+                  const SizedBox(
+                    width: 7,
+                  ),
+
+                  /// textfield kelamin
+                  Flexible(
+                    child: ReadOnlyTextFields(
+                      hint: jenisKelaminTextForm,
+                      controller: accountProvider.profileJenisKelaminController,
+                      onTap: () {
+                        modalBottomSheed(
+                          context,
+                          const EditGenderProfile(),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(
+                height: 10,
+              ),
+
+              ///textfield alamat
+              TextFormAccount(
+                hint: alamatTextForm,
+                controller: accountProvider.profileAlamatController,
+                maxLines: 2,
+                minLines: 1,
+                textInputAction: TextInputAction.done,
+                obscureText: false,
+              ),
+
+              const SizedBox(
+                height: 15,
+              ),
+
+              ///button update data
+              ButtonWidget(
+                borderRadius: BorderRadius.circular(40),
+                onPressed: () async {
+                  accountProvider.updateDataUSer(context);
+                },
+                backgroundColor: MyColor.deepAqua,
+                sizeWidth: sizeWidth * .95,
+                child: Text(
+                  'Simpan',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(color: MyColor.white),
                 ),
               ),
             ],
           ),
-
-          const SizedBox(
-            height: 10,
-          ),
-
-          ///textfield alamat
-          TextFormAccount(
-            hint: alamatTextForm,
-            controller: accountProvider.profileAlamatController,
-            maxLines: 2,
-            minLines: 1,
-            textInputAction: TextInputAction.done,
-            obscureText: false,
-          ),
-
-          const SizedBox(
-            height: 15,
-          ),
-
-          ///button update data
-          ButtonWidget(
-            borderRadius: BorderRadius.circular(40),
-            onPressed: () async {
-              accountProvider.updateDataUSer(context);
-            },
-            backgroundColor: MyColor.deepAqua,
-            sizeWidth: sizeWidth * .95,
-            child: Text(
-              'Simpan',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(color: MyColor.white),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pekaku_app/src/utils/color.dart';
-import 'package:pekaku_app/src/view_model/auth_view_model/auth_provider.dart';
-import 'package:pekaku_app/src/view_model/auth_view_model/login_provider.dart';
+import 'package:pekaku_app/src/services/auth_services_provider.dart';
+import 'package:pekaku_app/src/services/login_services_provider.dart';
 import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provider.dart';
 import 'package:pekaku_app/src/widget/button/button_widget.dart';
 import 'package:pekaku_app/src/widget/button/text_button.dart';
@@ -18,12 +18,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   @override
   Widget build(BuildContext context) {
     final navigasiProvider =
         Provider.of<NavigatorProvider>(context, listen: false);
-    final loginProvider = Provider.of<LoginViewModel>(context, listen: false);
+    final loginProvider = Provider.of<LoginServices>(context, listen: false);
     final sizeWidth = MediaQuery.of(context).size.width;
     final sizeHeight = MediaQuery.of(context).size.height;
     final paddingTop = MediaQuery.of(context).padding.top;
@@ -61,26 +60,24 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             /// password textfields
-            Consumer<LoginViewModel>(
-              builder: (context, value, child) {
-                return TextFormFields(
-                  controller: loginProvider.passwordController,
-                  obscureText: value.scurePassword,
-                  label: 'Password',
-                  maxLines: 1,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      value.visiblePassword();
-                    },
-                    icon: FaIcon(
-                        value.scurePassword
-                            ? FontAwesomeIcons.eye
-                            : FontAwesomeIcons.eyeSlash,
-                        color: MyColor.deepAqua),
-                  ),
-                );
-              }
-            ),
+            Consumer<LoginServices>(builder: (context, value, child) {
+              return TextFormFields(
+                controller: loginProvider.passwordController,
+                obscureText: value.scurePassword,
+                label: 'Password',
+                maxLines: 1,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    value.visiblePassword();
+                  },
+                  icon: FaIcon(
+                      value.scurePassword
+                          ? FontAwesomeIcons.eye
+                          : FontAwesomeIcons.eyeSlash,
+                      color: MyColor.deepAqua),
+                ),
+              );
+            }),
 
             const SizedBox(
               height: 30,
@@ -151,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
             /// button login with google
             InkWell(
               onTap: () {
-                context.read<AuthViewModel>().googleAuthLogin(context);
+                context.read<AuthServicesProvider>().googleAuthLogin(context);
               },
               borderRadius: BorderRadius.circular(40),
               splashColor: MyColor.greySolid.withOpacity(.3),

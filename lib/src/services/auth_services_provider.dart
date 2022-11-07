@@ -7,7 +7,7 @@ import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provide
 import 'package:pekaku_app/src/widget/dialog/toast_allert.dart';
 import 'package:provider/provider.dart';
 
-class AuthViewModel with ChangeNotifier {
+class AuthServicesProvider with ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   User? get currentUser => _firebaseAuth.currentUser;

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:pekaku_app/src/utils/color.dart';
-import 'package:pekaku_app/src/view_model/auth_view_model/register_provider.dart';
+import 'package:pekaku_app/src/services/register_services_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -24,12 +24,12 @@ Future birthDayPicker(context) {
             maximumYear: 2022,
             onDateTimeChanged: (DateTime newDate) {
               context
-                  .read<RegisterViewModel>()
+                  .read<RegisterServices>()
                   .registerTanggalLahirController
                   .text = newDate.toString();
 
               context
-                  .read<RegisterViewModel>()
+                  .read<RegisterServices>()
                   .registerTanggalLahirController
                   .text = DateFormat('d MMMM y').format(newDate);
 

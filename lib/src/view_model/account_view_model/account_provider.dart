@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pekaku_app/src/utils/color.dart';
-import 'package:pekaku_app/src/view_model/auth_view_model/auth_provider.dart';
+import 'package:pekaku_app/src/services/auth_services_provider.dart';
 import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provider.dart';
 import 'package:pekaku_app/src/widget/dialog/toast_allert.dart';
 import 'package:provider/provider.dart';
 
 class AccountViewModel with ChangeNotifier {
-  final AuthViewModel auth = AuthViewModel();
+  final AuthServicesProvider auth = AuthServicesProvider();
 
   final TextEditingController _profileUsernameController =
       TextEditingController();
@@ -110,5 +110,13 @@ class AccountViewModel with ChangeNotifier {
   /// logout
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
+  }
+
+  void disposeEditAccountController(){
+    _profileUsernameController;
+    _profileEmailController;
+    _profileJenisKelaminController;
+    _profileAlamatController;
+    _profileTanggalLahirController;
   }
 }

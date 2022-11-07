@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pekaku_app/src/utils/color.dart';
-import 'package:pekaku_app/src/view_model/auth_view_model/register_provider.dart';
+import 'package:pekaku_app/src/services/register_services_provider.dart';
 import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provider.dart';
 import 'package:pekaku_app/src/widget/button/button_widget.dart';
 import 'package:pekaku_app/src/widget/button/icon_button_widget.dart';
@@ -23,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final registerProvider =
-        Provider.of<RegisterViewModel>(context, listen: false);
+        Provider.of<RegisterServices>(context, listen: false);
     final sizeWidth = MediaQuery.of(context).size.width;
     final sizeHeight = MediaQuery.of(context).size.height;
     final paddingTop = MediaQuery.of(context).padding.top;
@@ -94,7 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   /// tanggal lahir textfields
                   Flexible(
-                    child: Consumer<RegisterViewModel>(
+                    child: Consumer<RegisterServices>(
                         builder: (context, value, child) {
                       return ReadOnlyTextFields(
                         controller: value.registerTanggalLahirController,
@@ -118,7 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   /// jenis kelamin textfields
                   Flexible(
-                    child: Consumer<RegisterViewModel>(
+                    child: Consumer<RegisterServices>(
                         builder: (context, value, child) {
                       return ReadOnlyTextFields(
                         controller: value.registerJenisKelaminController,
@@ -159,7 +159,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
 
               /// password textfields
-              Consumer<RegisterViewModel>(builder: (context, value, child) {
+              Consumer<RegisterServices>(builder: (context, value, child) {
                 return TextFormFields(
                   controller: value.registerPasswordController,
                   obscureText: value.scureRegisterPassword,
@@ -184,7 +184,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
 
               /// confirm password
-              Consumer<RegisterViewModel>(builder: (context, value, child) {
+              Consumer<RegisterServices>(builder: (context, value, child) {
                 return TextFormFields(
                   controller: value.confirmRegisterPasswordController,
                   obscureText: value.scureRegisterConfirmPassword,

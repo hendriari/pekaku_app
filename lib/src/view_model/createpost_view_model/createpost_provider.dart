@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -122,5 +125,68 @@ class CreatePostViewModel with ChangeNotifier {
       ),
     );
     notifyListeners();
+  }
+
+  /// --------------------------------------------------------------------------
+  ///
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  final TextEditingController _keteranganController = TextEditingController();
+
+  get keteranganController => _keteranganController;
+
+  String uniqueImageName = DateTime.now().microsecondsSinceEpoch.toString();
+  String imageUrl = '';
+
+  Future<void> postImagessss() async {
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    Reference referenceDirImage = firebaseStorage.ref().child('images');
+    Reference referenceImageUpload = referenceDirImage.child(uniqueImageName);
+
+    try {
+      await referenceImageUpload.putFile(_images!);
+      imageUrl = await referenceImageUpload.getDownloadURL();
+    } catch (e) {
+      debugPrint('$e');
+    }
+  }
+
+  ///
+  Future<void> createSSPost() async {
+    // FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    // Reference referenceDirImage = firebaseStorage.ref().child('images');
+    // Reference referenceImageUpload = referenceDirImage.child(uniqueImageName);
+    //
+    // try {
+    //   await referenceImageUpload.putFile(File('$images'));
+    //   imageUrl = await referenceImageUpload.getDownloadURL();
+    // } catch (e) {
+    //
+    //
+    // }
+
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    Reference referenceDirImage = firebaseStorage.ref().child('images');
+    Reference referenceImageUpload = referenceDirImage.child(uniqueImageName);
+
+    await referenceImageUpload.putFile(_images!);
+    imageUrl = await referenceImageUpload.getDownloadURL();
+
+    final users = _firebaseAuth.currentUser;
+    // final detailPost = _createPostViewModel;
+    _firestore.collection('userPost').add({
+      'uid': users!.uid,
+      'datePost': dateCreatePost,
+      'lokasiPost': address,
+      'keterangan': _keteranganController.text,
+      'latitude': posLatitude,
+      'longtitude': posLongitude,
+      'imagePost': imageUrl,
+    });
+  }
+
+  void disposeCreateController() {
+    _keteranganController;
   }
 }

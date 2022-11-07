@@ -2,15 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pekaku_app/src/model/user_model.dart';
-import 'package:pekaku_app/src/view_model/auth_view_model/auth_provider.dart';
+import 'package:pekaku_app/src/services/auth_services_provider.dart';
 import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provider.dart';
 import 'package:pekaku_app/src/widget/dialog/toast_allert.dart';
 import 'package:provider/provider.dart';
 
-import '../../utils/color.dart';
+import '../utils/color.dart';
 
-class RegisterViewModel with ChangeNotifier {
-  AuthViewModel auth = AuthViewModel();
+class RegisterServices with ChangeNotifier {
+  AuthServicesProvider auth = AuthServicesProvider();
 
   UserModel userModel = UserModel();
 
@@ -97,13 +97,6 @@ class RegisterViewModel with ChangeNotifier {
       _confirmRegisterPasswordController.clear();
       Provider.of<NavigatorProvider>(context, listen: false)
           .navigasiCheckLogin(context);
-      // _registerUsernameController.dispose();
-      // _registerEmailController.dispose();
-      // _registerAlamatController.dispose();
-      // _registerJenisKelaminController.dispose();
-      // _registerTanggalLahirController.dispose();
-      // _confirmRegisterPasswordController.dispose();
-      // _registerPasswordController.dispose();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return toastAllert('Password lemah', MyColor.errorColor, 1);
@@ -121,7 +114,8 @@ class RegisterViewModel with ChangeNotifier {
 
     userModel.email = users!.email;
     userModel.uid = users.uid;
-    userModel.image = 'https://cdn3d.iconscout.com/3d/premium/thumb/man-avatar-6299539-5187871.png';
+    userModel.image =
+        'https://cdn3d.iconscout.com/3d/premium/thumb/man-avatar-6299539-5187871.png';
     userModel.name = _registerUsernameController.text;
     userModel.alamat = _registerAlamatController.text;
     userModel.tanggallahir = _registerTanggalLahirController.text;
@@ -158,14 +152,13 @@ class RegisterViewModel with ChangeNotifier {
     }
   }
 
-// /// controller dispose
-// Future<void> disposeTextController() async {
-//   _registerUsernameController.dispose();
-//   _registerEmailController.dispose();
-//   _registerAlamatController.dispose();
-//   _registerJenisKelaminLahirController.dispose();
-//   _registerTanggalLahirController.dispose();
-//   _confirmRegisterPasswordController.dispose();
-//   _registerPasswordController.dispose();
-// }
+  void disposeTextController() {
+    _registerUsernameController;
+    _registerEmailController;
+    _registerAlamatController;
+    _registerJenisKelaminController;
+    _registerTanggalLahirController;
+    _confirmRegisterPasswordController;
+    _registerPasswordController;
+  }
 }
