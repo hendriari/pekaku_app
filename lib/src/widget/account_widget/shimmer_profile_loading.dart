@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pekaku_app/src/utils/color.dart';
 import 'package:pekaku_app/src/utils/custom_fonts.dart';
 import 'package:pekaku_app/src/widget/account_widget/row_widget.dart';
@@ -9,17 +10,14 @@ class ShimmerProfileLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double paddingTop = MediaQuery
-        .of(context)
-        .padding
-        .top;
+    final double paddingTop = MediaQuery.of(context).padding.top;
+    final double sizeHeight = MediaQuery.of(context).size.height;
 
     return Padding(
       padding: EdgeInsets.only(left: 10, right: 10, top: paddingTop),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-
           /// text header
           RichText(
             text: TextSpan(
@@ -79,9 +77,7 @@ class ShimmerProfileLoading extends StatelessWidget {
                       Text(
                         'name',
                       ),
-                      Text(
-                          'name'
-                      ),
+                      Text('name'),
                     ],
                   )
                 ],
@@ -103,7 +99,6 @@ class ShimmerProfileLoading extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-
                   /// profile
                   rowWidget(
                     context: context,
@@ -133,15 +128,14 @@ class ShimmerProfileLoading extends StatelessWidget {
                       context: context,
                       icon: CupertinoIcons.settings,
                       text: 'Pengaturan',
-                      onTap: () {}
-                  ),
+                      onTap: () {}),
                 ],
               ),
             ),
           ),
 
           const SizedBox(
-            height: 10,
+            height: 20,
           ),
 
           /// logout
@@ -160,9 +154,43 @@ class ShimmerProfileLoading extends StatelessWidget {
                 onTap: () {}),
           ),
 
+          const Spacer(),
+
+          SizedBox(
+            width: 120,
+            child: Column(
+              children: [
+                /// nama aplikasi
+                Text(
+                  'Pekakuy',
+                  style: GoogleFonts.merienda(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 28,
+                      color: MyColor.deepAqua,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 4,
+                ),
+
+                /// versi aplikasi
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    'v 1.0.1',
+                    style: TextStyle(color: MyColor.gray),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           /// batas bawah
-          const SizedBox(
-            height: 75,
+          SizedBox(
+            height: sizeHeight * .13,
           ),
         ],
       ),

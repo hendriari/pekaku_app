@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pekaku_app/src/utils/color.dart';
-import 'package:pekaku_app/src/view_model/auth_view_model/auth_provider.dart';
+import 'package:pekaku_app/src/services/auth_services_provider.dart';
 import 'package:pekaku_app/src/widget/dialog/toast_allert.dart';
 
-class ForgotPasswordViewModel with ChangeNotifier {
-  AuthViewModel auth = AuthViewModel();
+class ForgotPasswordServices with ChangeNotifier {
+  AuthServicesProvider auth = AuthServicesProvider();
 
   final TextEditingController _emailResetController = TextEditingController();
 

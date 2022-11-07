@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pekaku_app/src/view_model/auth_view_model/auth_provider.dart';
 import 'package:pekaku_app/src/widget/widget/text_header.dart';
-import 'package:provider/provider.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -19,11 +17,6 @@ class HistoryPage extends StatelessWidget {
               Center(
                 child: textHeader('Disi','mpan'),
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    context.read<AuthViewModel>().signOut();
-                  },
-                  child: Text('metu'))
             ],
           ),
         ),

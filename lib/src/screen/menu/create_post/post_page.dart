@@ -4,31 +4,20 @@ import 'package:pekaku_app/src/utils/color.dart';
 import 'package:pekaku_app/src/widget/create_post_widget/create_post_dialog.dart';
 import 'package:pekaku_app/src/widget/home_widget/sliver_widget.dart';
 
-class PostPage extends StatefulWidget {
+class PostPage extends StatelessWidget {
   const PostPage({Key? key}) : super(key: key);
 
   @override
-  State<PostPage> createState() => _PostPageState();
-}
-
-class _PostPageState extends State<PostPage> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      createPost(context);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final double sizeHeight = MediaQuery.of(context).size.height;
+    final double sizeWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, isScrolled) {
           return [
             /// header
             SliverWidget(
-              onPressed: (){
+              onPressed: () {
                 createPost(context);
               },
               headerIcon: Icon(
@@ -36,24 +25,16 @@ class _PostPageState extends State<PostPage> {
                 color: MyColor.deepAqua,
               ),
               text1: 'postingan',
-              text2: '',
+              text2: 'ku',
             ),
           ];
         },
         body: SingleChildScrollView(
           /// konten
-          child: Column(
-            children: const [
-              /// konten postingan
-              Center(
-                child: Text('Belum ada postingan'),
-              ),
-
-              /// batas navigasi bar
-              SizedBox(
-                height: 75,
-              ),
-            ],
+          child: Padding(
+            padding:
+                EdgeInsets.only(left: sizeWidth / 3, top: sizeHeight / 2.5),
+            child: const Text('Belum ada postingan'),
           ),
         ),
       ),

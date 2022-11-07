@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pekaku_app/src/utils/color.dart';
-import 'package:pekaku_app/src/view_model/auth_view_model/auth_provider.dart';
+import 'package:pekaku_app/src/services/auth_services_provider.dart';
 import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provider.dart';
 import 'package:pekaku_app/src/widget/dialog/toast_allert.dart';
 import 'package:provider/provider.dart';
 
-class LoginViewModel with ChangeNotifier {
-  AuthViewModel auth = AuthViewModel();
+class LoginServices with ChangeNotifier {
+  AuthServicesProvider auth = AuthServicesProvider();
 
   late bool _scurePassword = true;
 
@@ -48,8 +48,8 @@ class LoginViewModel with ChangeNotifier {
   }
 
   /// login controller dispose
-// Future<void> loginControllerDispose() async {
-//   _emailController.dispose();
-//   _passwordController.dispose();
-// }
+  void loginControllerDispose() {
+    _emailController;
+    _passwordController;
+  }
 }

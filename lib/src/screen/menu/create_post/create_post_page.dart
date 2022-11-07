@@ -27,6 +27,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
     mapsPost.getAddressFromLongLat(mapsPost.posLatitude, mapsPost.posLongitude);
   }
 
+
   @override
   Widget build(BuildContext context) {
     final double sizeHeight = MediaQuery.of(context).size.height;
@@ -171,12 +172,15 @@ class _CreatePostPageState extends State<CreatePostPage> {
               ),
 
               /// field keterangan
-              const TextFormFields(
-                obscureText: false,
-                maxLines: 5,
-                textInputAction: TextInputAction.done,
-                label: '',
-              ),
+              Consumer<CreatePostViewModel>(builder: (context, value, child) {
+                return TextFormFields(
+                  obscureText: false,
+                  controller: value.keteranganController,
+                  maxLines: 5,
+                  textInputAction: TextInputAction.done,
+                  label: '',
+                );
+              }),
 
               const SizedBox(
                 height: 30,
@@ -187,7 +191,11 @@ class _CreatePostPageState extends State<CreatePostPage> {
                 sizeWidth: double.infinity,
                 backgroundColor: MyColor.deepAqua,
                 borderRadius: BorderRadius.circular(40),
-                onPressed: () {},
+                onPressed: () {
+                  // context.read<PostServicesProvider>().createPost();
+                  context.read<CreatePostViewModel>().createSSPost();
+                  //context.read<CreatePostViewModel>().postImagessss();
+                },
                 child: const Text('Posting'),
               ),
 
