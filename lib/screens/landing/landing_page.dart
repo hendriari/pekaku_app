@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+import 'package:pekaku_app/utils/colors.dart';
+import 'package:pekaku_app/view_model/navigasi_view_model/navigasi_view_model.dart';
+import 'package:pekaku_app/widgets/widget/button_widget.dart';
+import 'package:provider/provider.dart';
+
+class LandingPage extends StatelessWidget {
+  const LandingPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final sizeHeight = MediaQuery.of(context).size.height;
+    final sizeWidth = MediaQuery.of(context).size.width;
+    final paddingTop = MediaQuery.of(context).padding.top;
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.only(
+          top: paddingTop + sizeHeight * .03,
+          right: 20,
+          left: 20,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// header text
+            Text(
+              'Halo !',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline2!
+                  .copyWith(color: MyColor.darkBlue),
+            ),
+
+            Text(
+              'Pekakuy',
+              style: Theme.of(context).textTheme.headline3,
+            ),
+
+            const Spacer(),
+
+            /// button auth login
+            ButtonWidget(
+              onPressed: () {
+                context.read<NavigasiViewModel>().navigasiToLogin(context);
+              },
+              sizeWidth: sizeWidth * .95,
+              borderRadius: BorderRadius.circular(40),
+              backgroundColor: MyColor.deepAqua,
+              child: Text(
+                'Mulai',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(color: MyColor.white),
+              ),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
