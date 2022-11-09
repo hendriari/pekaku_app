@@ -1,51 +1,60 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pekaku_app/src/services/forgot_password_services.dart';
-import 'package:pekaku_app/src/services/login_services_provider.dart';
-import 'package:pekaku_app/src/services/register_services_provider.dart';
-import 'firebase_options.dart';
-import 'package:pekaku_app/src/screen/landing/splash_screen.dart';
-import 'package:pekaku_app/src/utils/color.dart';
-import 'package:pekaku_app/src/utils/font.dart';
-import 'package:pekaku_app/src/services/auth_services_provider.dart';
-import 'package:pekaku_app/src/view_model/createpost_view_model/createpost_provider.dart';
-import 'package:pekaku_app/src/view_model/menu_view_model/menu_provider.dart';
-import 'package:pekaku_app/src/view_model/navigator_view_model/navigator_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:pekaku_app/screens/landing/splash_screen.dart';
+import 'package:pekaku_app/services/change_password_services/change_password_services.dart';
+import 'package:pekaku_app/services/firebase_services/firebase_auth_services.dart';
+import 'package:pekaku_app/services/firebase_services/firebase_storage_services.dart';
+import 'package:pekaku_app/services/firebase_services/firestore_services.dart';
+import 'package:pekaku_app/services/login_services/login_services.dart';
+import 'package:pekaku_app/services/register_services/register_services.dart';
+import 'package:pekaku_app/utils/colors.dart';
+import 'package:pekaku_app/utils/text_theme_font.dart';
+import 'package:pekaku_app/view_model/account_view_model/account_view_model.dart';
+import 'package:pekaku_app/view_model/createpost_view_model/post_with_maps.dart';
+import 'package:pekaku_app/view_model/login_view_model/login_view_model.dart';
+import 'package:pekaku_app/view_model/menu_view_model/menu_provider.dart';
+import 'package:pekaku_app/view_model/navigasi_view_model/navigasi_view_model.dart';
+import 'package:pekaku_app/view_model/register_view_model/register_view_model.dart';
+import 'package:pekaku_app/view_model/user_view_model/user_view_model.dart';
+import 'package:pekaku_app/services/home_services/home_services.dart';
+import 'package:pekaku_app/view_model/home_view_model/home_view_model.dart';
 import 'package:provider/provider.dart';
-import 'src/view_model/account_view_model/account_provider.dart';
-import 'src/services/post_services_provider.dart';
-import 'src/view_model/home_view_model/home_provider.dart';
+import 'services/profile_services/profile_services.dart';
 
 void main() async {
-  runApp(const PekakuApp());
-  Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
 }
 
-class PekakuApp extends StatelessWidget {
-  const PekakuApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => NavigatorProvider()),
-        ChangeNotifierProvider(create: (_) => AuthServicesProvider()),
+        ChangeNotifierProvider(create: (_) => UserViewModel()),
+        ChangeNotifierProvider(create: (_) => ProfileServices()),
+        ChangeNotifierProvider(create: (_) => HomeServices()),
+        ChangeNotifierProvider(create: (_) => HomeViewModel()),
+        ChangeNotifierProvider(create: (_) => FirebaseStorageServices()),
+        ChangeNotifierProvider(create: (_) => FirebaseAuthServices()),
+        ChangeNotifierProvider(create: (_) => FireStoreServices()),
+        ChangeNotifierProvider(create: (_) => NavigasiViewModel()),
+        ChangeNotifierProvider(create: (_) => MenuViewModel()),
+        ChangeNotifierProvider(create: (_) => LoginViewModel()),
+        ChangeNotifierProvider(create: (_) => RegisterViewModel()),
+        ChangeNotifierProvider(create: (_) => HomeServices()),
         ChangeNotifierProvider(create: (_) => LoginServices()),
         ChangeNotifierProvider(create: (_) => RegisterServices()),
-        ChangeNotifierProvider(create: (_) => ForgotPasswordServices()),
-        ChangeNotifierProvider(create: (_) => MenuViewModel()),
-        ChangeNotifierProvider(create: (_) => HomeViewModel()),
-        ChangeNotifierProvider(create: (_) => CreatePostViewModel()),
-        ChangeNotifierProvider(create: (_) => PostServicesProvider()),
+        ChangeNotifierProvider(create: (_) => ChangePasswordServices()),
         ChangeNotifierProvider(create: (_) => AccountViewModel()),
+        ChangeNotifierProvider(create: (_) => CreatePostViewModel()),
       ],
       child: MaterialApp(
-        home: const SplashScreen(),
         debugShowCheckedModeBanner: false,
+        home: const SplashScreen(),
         theme: ThemeData(
           textTheme: myTextTheme,
           colorScheme:
