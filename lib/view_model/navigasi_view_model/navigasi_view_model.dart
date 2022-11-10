@@ -6,7 +6,6 @@ import 'package:pekaku_app/screens/landing/auth_page/lupa_password_page.dart';
 import 'package:pekaku_app/screens/landing/auth_page/register_page.dart';
 import 'package:pekaku_app/screens/landing/splash_screen2.dart';
 import 'package:pekaku_app/screens/menu/account/setting/setting_page.dart';
-import 'package:pekaku_app/screens/menu/create_post/create_post_widget/google_maps_widget.dart';
 
 class NavigasiViewModel with ChangeNotifier {
   /// navigasi splash 1 ke splash 2
@@ -128,31 +127,30 @@ class NavigasiViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  /// navigasi dari page postingan ke buat postingan
-  // void navigasiBuatPostingan(context) {
-  //   Navigator.push(
-  //     context,
-  //     PageRouteBuilder(
-  //       pageBuilder: (context, animation, secondAnimation) =>
-  //       const CreatePostPage(),
-  //       transitionDuration: const Duration(milliseconds: 1200),
-  //       transitionsBuilder: (context, animation, secondAnimation, child) {
-  //         const begin = Offset(0.0, 1.0);
-  //         const end = Offset.zero;
-  //         const curve = Curves.linearToEaseOut;
-  //
-  //         var tween = Tween(begin: begin, end: end).chain(
-  //           CurveTween(curve: curve),
-  //         );
-  //
-  //         return SlideTransition(
-  //           position: animation.drive(tween),
-  //           child: child,
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
+  /// login
+  void navigasiLogin(BuildContext context) {
+    Navigator.of(context).pushAndRemoveUntil(
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondAnimation) =>
+          const CheckLoginPage(),
+          transitionDuration: const Duration(milliseconds: 1200),
+          transitionsBuilder: (context, animation, secondAnimation, child) {
+            const begin = Offset(0.0, 1.0);
+            const end = Offset.zero;
+            const curve = Curves.linearToEaseOut;
+
+            var tween = Tween(begin: begin, end: end).chain(
+              CurveTween(curve: curve),
+            );
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        ),
+            (route) => false);
+  }
 
   // /// open google maps
   // void navigasiOpenGoogleMaps(context){

@@ -115,30 +115,33 @@ class AccountProfileWidget extends StatelessWidget {
                       width: 10,
                     ),
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        /// name user
-                        Text(
-                          textNameHeader,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4!
-                              .copyWith(color: MyColor.white),
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          /// name user
+                          Text(
+                            textNameHeader,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(color: MyColor.white),
+                            overflow: TextOverflow.ellipsis,
+                          ),
 
-                        /// email user
-                        Text(
-                          textEmailUser,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(color: MyColor.marble),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
+                          /// email user
+                          Text(
+                            textEmailUser,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(color: MyColor.marble),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -256,7 +259,7 @@ class AccountProfileWidget extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Text(
-                      'v 1.0.1',
+                      'v 1.0.0',
                       style: TextStyle(color: MyColor.gray),
                     ),
                   ),
