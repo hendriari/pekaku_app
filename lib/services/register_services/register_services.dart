@@ -5,14 +5,16 @@ import 'package:pekaku_app/helper/text_editing_controller.dart';
 import 'package:pekaku_app/models/user_model.dart';
 import 'package:pekaku_app/services/firebase_services/firebase_storage_services.dart';
 import 'package:pekaku_app/utils/colors.dart';
+import 'package:pekaku_app/view_model/navigasi_view_model/navigasi_view_model.dart';
 import 'package:pekaku_app/widgets/dialog/toast_allert.dart';
+import 'package:provider/provider.dart';
 
 class RegisterServices with ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   /// register
-  Future<void> signUpUser() async {
+  Future<void> signUpUser(context) async {
     try {
       UserCredential cred = await _auth.createUserWithEmailAndPassword(
         email: TextEditing.emailRegisterController.text,
@@ -33,6 +35,9 @@ class RegisterServices with ChangeNotifier {
           .collection("penggunaBaru")
           .doc(cred.user!.uid)
           .set(userModel.toJson());
+
+      Provider.of<NavigasiViewModel>(context, listen: false).navigasiCheckLogin(context);
+
     } on FirebaseAuthException catch (e) {
       return toastAllert('${e.message}', MyColor.errorColor, 1);
     }
