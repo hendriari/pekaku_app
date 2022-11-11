@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(40),
               onPressed: () async {
                 ///loginProvider.login(context);
-                context.read<LoginServices>().loginUser(context);
+                context.read<LoginServices>().loginUser();
               },
               backgroundColor: MyColor.deepAqua,
               sizeWidth: sizeWidth * .95,

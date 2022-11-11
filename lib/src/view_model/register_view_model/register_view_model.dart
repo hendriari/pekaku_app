@@ -48,7 +48,7 @@ class RegisterViewModel with ChangeNotifier{
       toastAllert(
           'Password harus lebih dari 8 karakter', MyColor.errorColor, 1);
     } else {
-      RegisterServices().signUpUser(context);
+      RegisterServices().signUpUser();
     }
   }
 }

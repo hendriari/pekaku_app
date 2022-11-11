@@ -7,14 +7,14 @@ import 'package:pekaku_app/src/widgets/widget/icon_button_widget.dart';
 import 'package:pekaku_app/src/widgets/widget/text_header.dart';
 import 'package:provider/provider.dart';
 
-class AddPostPage extends StatefulWidget {
-  const AddPostPage({Key? key}) : super(key: key);
+class CreatePostPage extends StatefulWidget {
+  const CreatePostPage({Key? key}) : super(key: key);
 
   @override
-  State<AddPostPage> createState() => _AddPostPageState();
+  State<CreatePostPage> createState() => _CreatePostPageState();
 }
 
-class _AddPostPageState extends State<AddPostPage> {
+class _CreatePostPageState extends State<CreatePostPage> {
   @override
   Widget build(BuildContext context) {
     final double sizeHeight = MediaQuery.of(context).size.height;

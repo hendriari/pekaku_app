@@ -14,19 +14,19 @@ class NavigasiViewModel with ChangeNotifier {
   void navigasiSplash1(BuildContext context) {
     Timer(
       const Duration(milliseconds: 800),
-      () {
+          () {
         Navigator.of(context).pushAndRemoveUntil(
             PageRouteBuilder(
               pageBuilder: (context, animation, secondAnimation) =>
-                  const SplashScreen2(),
+              const SplashScreen2(),
               transitionsBuilder:
                   (context, animation, secondAnimation, child) =>
-                      FadeTransition(
-                opacity: animation,
-                child: child,
-              ),
+                  FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
             ),
-            (route) => false);
+                (route) => false);
       },
     );
     notifyListeners();
@@ -36,19 +36,19 @@ class NavigasiViewModel with ChangeNotifier {
   void navigasiSplash2(BuildContext context) {
     Timer(
       const Duration(milliseconds: 300),
-      () {
+          () {
         Navigator.of(context).pushAndRemoveUntil(
             PageRouteBuilder(
               pageBuilder: (context, animation, secondAnimation) =>
-                  const CheckLoginPage(),
+              const CheckLoginPage(),
               transitionsBuilder:
                   (context, animation, secondAnimation, child) =>
-                      FadeTransition(
-                opacity: animation,
-                child: child,
-              ),
+                  FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
             ),
-            (route) => false);
+                (route) => false);
       },
     );
     notifyListeners();
@@ -64,14 +64,12 @@ class NavigasiViewModel with ChangeNotifier {
     );
     notifyListeners();
   }
-
   //
   /// navigasi kembali
   void navigasiBack(BuildContext context) {
     Navigator.pop(context);
     notifyListeners();
   }
-
   //
   /// navigasi dari login ke register
   void navigasiLoginToRegister(BuildContext context) {
@@ -83,7 +81,6 @@ class NavigasiViewModel with ChangeNotifier {
     );
     notifyListeners();
   }
-
   //
   /// navigasi lupa password
   void navigasiChangePassword(BuildContext context) {
@@ -101,7 +98,7 @@ class NavigasiViewModel with ChangeNotifier {
     Navigator.of(context).pushAndRemoveUntil(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondAnimation) =>
-              const CheckLoginPage(),
+          const CheckLoginPage(),
           transitionDuration: const Duration(milliseconds: 1200),
           transitionsBuilder: (context, animation, secondAnimation, child) {
             const begin = Offset(0.0, 1.0);
@@ -118,7 +115,7 @@ class NavigasiViewModel with ChangeNotifier {
             );
           },
         ),
-        (route) => false);
+            (route) => false);
   }
 
   /// navigasi dari login ke register
@@ -132,38 +129,13 @@ class NavigasiViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  /// login
-  void navigasiLogin(BuildContext context) {
-    Navigator.of(context).pushAndRemoveUntil(
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondAnimation) =>
-              const CheckLoginPage(),
-          transitionDuration: const Duration(milliseconds: 1200),
-          transitionsBuilder: (context, animation, secondAnimation, child) {
-            const begin = Offset(0.0, 1.0);
-            const end = Offset.zero;
-            const curve = Curves.linearToEaseOut;
-
-            var tween = Tween(begin: begin, end: end).chain(
-              CurveTween(curve: curve),
-            );
-
-            return SlideTransition(
-              position: animation.drive(tween),
-              child: child,
-            );
-          },
-        ),
-        (route) => false);
-  }
-
   /// navigasi dari page postingan ke buat postingan
   void navigasiBuatPostingan(context) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondAnimation) =>
-            const DetailPostPage(),
+        const DetailPostPage(),
         transitionDuration: const Duration(milliseconds: 1200),
         transitionsBuilder: (context, animation, secondAnimation, child) {
           const begin = Offset(0.0, 1.0);
@@ -184,7 +156,7 @@ class NavigasiViewModel with ChangeNotifier {
   }
 
   /// open google maps
-  void navigasiOpenGoogleMaps(context) {
+  void navigasiOpenGoogleMaps(context){
     Navigator.push(
       context,
       CupertinoPageRoute(

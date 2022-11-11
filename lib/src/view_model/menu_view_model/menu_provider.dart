@@ -13,7 +13,7 @@ class MenuViewModel with ChangeNotifier {
 
   final List<Widget> _pages = [
     const HomePage(),
-    const AddPostPage(),
+    const CreatePostPage(),
     const HistoryPage(),
     const AccountPage(),
   ];
