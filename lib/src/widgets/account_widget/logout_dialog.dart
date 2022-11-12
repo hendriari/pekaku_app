@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pekaku_app/src/services/account_services/account_services.dart';
 import 'package:pekaku_app/src/utils/colors.dart';
-import 'package:pekaku_app/src/view_model/account_view_model/account_view_model.dart';
 import 'package:pekaku_app/src/view_model/navigasi_view_model/navigasi_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -29,8 +29,7 @@ Future logoutDialog(BuildContext context) {
             ),
             CupertinoDialogAction(
               onPressed: () {
-                context.read<AccountViewModel>().logOut();
-                ///context.read<AuthViewModel>().signOut();
+                context.read<AccountServices>().logOut();
                 context.read<NavigasiViewModel>().navigasiBack(context);
               },
               child: Text(

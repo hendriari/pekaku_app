@@ -7,6 +7,7 @@ import 'package:pekaku_app/src/screens/landing/auth_page/register_page.dart';
 import 'package:pekaku_app/src/screens/landing/splash_screen2.dart';
 import 'package:pekaku_app/src/screens/menu/account/setting/setting_page.dart';
 import 'package:pekaku_app/src/screens/menu/create_post/detail_post_page.dart';
+import 'package:pekaku_app/src/screens/menu/menu_page.dart';
 import 'package:pekaku_app/src/widgets/home_widget/google_maps_widget.dart';
 
 class NavigasiViewModel with ChangeNotifier {
@@ -14,19 +15,19 @@ class NavigasiViewModel with ChangeNotifier {
   void navigasiSplash1(BuildContext context) {
     Timer(
       const Duration(milliseconds: 800),
-          () {
+      () {
         Navigator.of(context).pushAndRemoveUntil(
             PageRouteBuilder(
               pageBuilder: (context, animation, secondAnimation) =>
-              const SplashScreen2(),
+                  const SplashScreen2(),
               transitionsBuilder:
                   (context, animation, secondAnimation, child) =>
-                  FadeTransition(
-                    opacity: animation,
-                    child: child,
-                  ),
+                      FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
             ),
-                (route) => false);
+            (route) => false);
       },
     );
     notifyListeners();
@@ -36,19 +37,19 @@ class NavigasiViewModel with ChangeNotifier {
   void navigasiSplash2(BuildContext context) {
     Timer(
       const Duration(milliseconds: 300),
-          () {
+      () {
         Navigator.of(context).pushAndRemoveUntil(
             PageRouteBuilder(
               pageBuilder: (context, animation, secondAnimation) =>
-              const CheckLoginPage(),
+                  const CheckLoginPage(),
               transitionsBuilder:
                   (context, animation, secondAnimation, child) =>
-                  FadeTransition(
-                    opacity: animation,
-                    child: child,
-                  ),
+                      FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
             ),
-                (route) => false);
+            (route) => false);
       },
     );
     notifyListeners();
@@ -64,12 +65,14 @@ class NavigasiViewModel with ChangeNotifier {
     );
     notifyListeners();
   }
+
   //
   /// navigasi kembali
   void navigasiBack(BuildContext context) {
     Navigator.pop(context);
     notifyListeners();
   }
+
   //
   /// navigasi dari login ke register
   void navigasiLoginToRegister(BuildContext context) {
@@ -81,6 +84,7 @@ class NavigasiViewModel with ChangeNotifier {
     );
     notifyListeners();
   }
+
   //
   /// navigasi lupa password
   void navigasiChangePassword(BuildContext context) {
@@ -98,7 +102,7 @@ class NavigasiViewModel with ChangeNotifier {
     Navigator.of(context).pushAndRemoveUntil(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondAnimation) =>
-          const CheckLoginPage(),
+              const CheckLoginPage(),
           transitionDuration: const Duration(milliseconds: 1200),
           transitionsBuilder: (context, animation, secondAnimation, child) {
             const begin = Offset(0.0, 1.0);
@@ -115,7 +119,7 @@ class NavigasiViewModel with ChangeNotifier {
             );
           },
         ),
-            (route) => false);
+        (route) => false);
   }
 
   /// navigasi dari login ke register
@@ -135,7 +139,7 @@ class NavigasiViewModel with ChangeNotifier {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondAnimation) =>
-        const DetailPostPage(),
+            const DetailPostPage(),
         transitionDuration: const Duration(milliseconds: 1200),
         transitionsBuilder: (context, animation, secondAnimation, child) {
           const begin = Offset(0.0, 1.0);
@@ -156,12 +160,21 @@ class NavigasiViewModel with ChangeNotifier {
   }
 
   /// open google maps
-  void navigasiOpenGoogleMaps(context){
+  void navigasiOpenGoogleMaps(context) {
     Navigator.push(
       context,
       CupertinoPageRoute(
         builder: (context) => const GoogleMapsWidget(),
       ),
     );
+  }
+
+  /// navigasi setelah submit data
+  void navigasiSetelahPost(context) {
+    Navigator.of(context).pushAndRemoveUntil(
+        CupertinoPageRoute(
+          builder: (context) => const MenuPage(),
+        ),
+        (route) => false);
   }
 }

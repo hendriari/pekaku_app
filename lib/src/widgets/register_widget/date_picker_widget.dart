@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:pekaku_app/src/helper/text_editing_controller.dart';
+import 'package:pekaku_app/src/utils/text_editing_controller.dart';
 import 'package:intl/intl.dart';
 import 'package:pekaku_app/src/utils/colors.dart';
 

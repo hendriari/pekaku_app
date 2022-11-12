@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:pekaku_app/src/services/account_services/account_services.dart';
 import 'package:pekaku_app/src/utils/colors.dart';
-import 'package:pekaku_app/src/view_model/account_view_model/account_view_model.dart';
 import 'package:pekaku_app/src/widgets/account_widget/account_profile_widget.dart';
 import 'package:pekaku_app/src/widgets/account_widget/shimmer_profile_loading.dart';
 import 'package:pekaku_app/src/widgets/widget/shimmer_widget.dart';
@@ -20,7 +20,7 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final userData = Provider.of<AccountViewModel>(context, listen: false);
+    final userData = Provider.of<AccountServices>(context, listen: false);
 
     /// get data secara realtime
     return Scaffold(

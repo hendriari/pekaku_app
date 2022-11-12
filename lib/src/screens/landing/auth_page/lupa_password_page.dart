@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pekaku_app/src/helper/text_editing_controller.dart';
+import 'package:pekaku_app/src/utils/text_editing_controller.dart';
 import 'package:pekaku_app/src/utils/colors.dart';
 import 'package:pekaku_app/src/view_model/changepassword_view_model/changepassword_view_model.dart';
 import 'package:pekaku_app/src/view_model/navigasi_view_model/navigasi_view_model.dart';

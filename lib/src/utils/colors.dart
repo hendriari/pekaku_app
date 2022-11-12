@@ -11,7 +11,7 @@ class MyColor {
   static Color border = const Color.fromRGBO(232, 236, 244, 1);
   static Color outlineBorder = const Color(0xFFD6D6D6);
   static Color white = Colors.white;
-  static Color greySolid = const Color.fromRGBO(106, 112, 124, 1);
+  // static Color greySolid = const Color.fromRGBO(106, 112, 124, 1);
   static Color gray = const Color.fromRGBO(131, 145, 161, 1);
   static Color transparan = Colors.transparent;
   static Color dark = Colors.black;

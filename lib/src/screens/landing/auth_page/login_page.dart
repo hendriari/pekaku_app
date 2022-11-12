@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pekaku_app/src/helper/text_editing_controller.dart';
+import 'package:pekaku_app/src/utils/text_editing_controller.dart';
 import 'package:pekaku_app/src/services/login_services/login_services.dart';
 import 'package:pekaku_app/src/utils/colors.dart';
 import 'package:pekaku_app/src/view_model/login_view_model/login_view_model.dart';
 import 'package:pekaku_app/src/view_model/navigasi_view_model/navigasi_view_model.dart';
 import 'package:pekaku_app/src/widgets/widget/button_widget.dart';
+import 'package:pekaku_app/src/widgets/widget/loading_widget.dart';
 import 'package:pekaku_app/src/widgets/widget/text_button.dart';
 import 'package:pekaku_app/src/widgets/widget/text_field_widget.dart';
 import 'package:provider/provider.dart';
@@ -21,10 +22,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final navigasiProvider =
-    Provider.of<NavigasiViewModel>(context, listen: false);
+        Provider.of<NavigasiViewModel>(context, listen: false);
     final sizeWidth = MediaQuery.of(context).size.width;
     final sizeHeight = MediaQuery.of(context).size.height;
     final paddingTop = MediaQuery.of(context).padding.top;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -97,22 +99,25 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             /// button login
-            ButtonWidget(
-              borderRadius: BorderRadius.circular(40),
-              onPressed: () async {
-                ///loginProvider.login(context);
-                context.read<LoginServices>().loginUser();
-              },
-              backgroundColor: MyColor.deepAqua,
-              sizeWidth: sizeWidth * .95,
-              child: Text(
-                'Log in',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(color: MyColor.white),
-              ),
-            ),
+            Consumer<LoginServices>(builder: (context, value, child) {
+              return ButtonWidget(
+                borderRadius: BorderRadius.circular(40),
+                onPressed: () async {
+                  context.read<LoginServices>().loginUser();
+                },
+                backgroundColor: MyColor.deepAqua,
+                sizeWidth: sizeWidth * .95,
+                child: value.loginLoading
+                    ? LoadingWidget.whiteButtonLoading
+                    : Text(
+                        'Log in',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: MyColor.white),
+                      ),
+              );
+            }),
 
             const SizedBox(
               height: 30,
