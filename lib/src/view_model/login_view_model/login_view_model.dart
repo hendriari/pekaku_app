@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class LoginViewModel with ChangeNotifier{
-
+class LoginViewModel with ChangeNotifier {
   late bool _scurePassword = true;
 
   get scurePassword => _scurePassword;
@@ -11,5 +10,4 @@ class LoginViewModel with ChangeNotifier{
     _scurePassword = !_scurePassword;
     notifyListeners();
   }
-
 }

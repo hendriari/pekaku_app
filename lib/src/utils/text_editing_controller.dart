@@ -43,5 +43,6 @@ class TextEditing {
       TextEditingController();
 
   /// keterangan post controller
-  static TextEditingController keteranganPostController = TextEditingController();
+  static TextEditingController keteranganPostController =
+      TextEditingController();
 }

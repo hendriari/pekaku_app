@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:pekaku_app/src/helper/text_editing_controller.dart';
+import 'package:pekaku_app/src/utils/text_editing_controller.dart';
 import 'package:pekaku_app/src/utils/colors.dart';
 import 'package:pekaku_app/src/view_model/navigasi_view_model/navigasi_view_model.dart';
 import 'package:pekaku_app/src/widgets/dialog/toast_allert.dart';
 import 'package:provider/provider.dart';
 
-class AccountViewModel with ChangeNotifier {
+class AccountServices with ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   /// get data real time firestore
@@ -20,18 +20,6 @@ class AccountViewModel with ChangeNotifier {
   get userData => _data;
 
 
-  /// check email
-  void checkerEmail() {
-    if (TextEditing.resetPasswordProfileController.text.isEmpty) {
-      toastAllert(
-        'Email tidak boleh kosong !',
-        MyColor.errorColor,
-        3,
-      );
-    } else {
-      resetProfilePassword();
-    }
-  }
 
   /// reset password
   Future<void> resetProfilePassword() async {
@@ -57,8 +45,8 @@ class AccountViewModel with ChangeNotifier {
           .collection("penggunaTerbaru")
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .update({
-        'name': TextEditing.usernameUpdateProfilController.text,
-        'kelamin': TextEditing.jenisKelaminRegisterController.text,
+        'username': TextEditing.usernameUpdateProfilController.text,
+        'jeniskelamin': TextEditing.jenisKelaminUpdateProfileController.text,
         'alamat': TextEditing.alamatUpdateProfileController.text,
         'tanggallahir': TextEditing.tanggalLahirUpdateProfileController.text,
       });

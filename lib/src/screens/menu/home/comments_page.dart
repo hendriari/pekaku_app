@@ -62,7 +62,7 @@ class _CommentsPageState extends State<CommentsPage> {
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: showLoading(),
+              child: LoadingWidget.deepLoading,
             );
           }
 

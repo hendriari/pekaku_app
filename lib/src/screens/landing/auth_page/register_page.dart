@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pekaku_app/src/helper/text_editing_controller.dart';
+import 'package:pekaku_app/src/utils/text_editing_controller.dart';
 import 'package:pekaku_app/src/services/register_services/register_services.dart';
 import 'package:pekaku_app/src/utils/colors.dart';
 import 'package:pekaku_app/src/view_model/navigasi_view_model/navigasi_view_model.dart';
@@ -14,7 +14,6 @@ import 'package:pekaku_app/src/widgets/widget/read_only_textfield.dart';
 import 'package:pekaku_app/src/widgets/widget/text_field_widget.dart';
 import 'package:provider/provider.dart';
 
-
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -26,10 +25,11 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final registerProvider =
-    Provider.of<RegisterViewModel>(context, listen: false);
+        Provider.of<RegisterViewModel>(context, listen: false);
     final sizeWidth = MediaQuery.of(context).size.width;
     final sizeHeight = MediaQuery.of(context).size.height;
     final paddingTop = MediaQuery.of(context).padding.top;
+
     return Scaffold(
       body: SingleChildScrollView(
         physics: const ScrollPhysics(),
@@ -99,20 +99,20 @@ class _RegisterPageState extends State<RegisterPage> {
                   Flexible(
                     child: Consumer<RegisterServices>(
                         builder: (context, value, child) {
-                          return ReadOnlyTextFields(
-                            controller: TextEditing.tanggalLahirRegisterController,
-                            onTap: () {
-                              birthDayPicker(context);
-                            },
-                            label: Text(
-                              'Tanggal Lahir',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(color: MyColor.deepAqua),
-                            ),
-                          );
-                        }),
+                      return ReadOnlyTextFields(
+                        controller: TextEditing.tanggalLahirRegisterController,
+                        onTap: () {
+                          birthDayPicker(context);
+                        },
+                        label: Text(
+                          'Tanggal Lahir',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: MyColor.deepAqua),
+                        ),
+                      );
+                    }),
                   ),
 
                   const SizedBox(
@@ -123,23 +123,23 @@ class _RegisterPageState extends State<RegisterPage> {
                   Flexible(
                     child: Consumer<RegisterServices>(
                         builder: (context, value, child) {
-                          return ReadOnlyTextFields(
-                            controller: TextEditing.jenisKelaminRegisterController,
-                            onTap: () {
-                              modalBottomSheed(
-                                context,
-                                const SelectGenderWidget(),
-                              );
-                            },
-                            label: Text(
-                              'Jenis Kelamin',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(color: MyColor.deepAqua),
-                            ),
+                      return ReadOnlyTextFields(
+                        controller: TextEditing.jenisKelaminRegisterController,
+                        onTap: () {
+                          modalBottomSheed(
+                            context,
+                            const SelectGenderWidget(),
                           );
-                        }),
+                        },
+                        label: Text(
+                          'Jenis Kelamin',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: MyColor.deepAqua),
+                        ),
+                      );
+                    }),
                   ),
                 ],
               ),

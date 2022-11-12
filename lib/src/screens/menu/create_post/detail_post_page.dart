@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pekaku_app/src/helper/text_editing_controller.dart';
+import 'package:pekaku_app/src/utils/text_editing_controller.dart';
 import 'package:pekaku_app/src/services/create_post_services/create_post_services.dart';
 import 'package:pekaku_app/src/utils/colors.dart';
 import 'package:pekaku_app/src/view_model/createpost_view_model/createpost_view_model.dart';
 import 'package:pekaku_app/src/view_model/navigasi_view_model/navigasi_view_model.dart';
 import 'package:pekaku_app/src/view_model/user_view_model/user_view_model.dart';
 import 'package:pekaku_app/src/widgets/widget/button_widget.dart';
+import 'package:pekaku_app/src/widgets/widget/loading_widget.dart';
 import 'package:pekaku_app/src/widgets/widget/text_field_widget.dart';
 import 'package:pekaku_app/src/widgets/widget/icon_button_widget.dart';
 import 'package:pekaku_app/src/widgets/widget/text_header.dart';
@@ -31,15 +32,11 @@ class _DetailPostPageState extends State<DetailPostPage> {
         locationPost.posLatitude, locationPost.posLongitude);
   }
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   TextEditing.keteranganPostController.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
-    final UserViewModel users = Provider.of<UserViewModel>(context, listen: false);
+    final UserViewModel users =
+        Provider.of<UserViewModel>(context, listen: false);
     final double sizeHeight = MediaQuery.of(context).size.height;
     final double paddingTop = MediaQuery.of(context).padding.top;
 
@@ -182,33 +179,37 @@ class _DetailPostPageState extends State<DetailPostPage> {
               ),
 
               /// field keterangan
-          TextFormFields(
-            obscureText: false,
-            controller: TextEditing.keteranganPostController,
-            maxLines: 5,
-            textInputAction: TextInputAction.done,
-            label: '',
-          ),
+              TextFormFields(
+                obscureText: false,
+                controller: TextEditing.keteranganPostController,
+                maxLines: 5,
+                textInputAction: TextInputAction.done,
+                label: '',
+              ),
 
               const SizedBox(
                 height: 30,
               ),
 
               /// button submit
-              ButtonWidget(
-                sizeWidth: double.infinity,
-                backgroundColor: MyColor.deepAqua,
-                borderRadius: BorderRadius.circular(40),
-                onPressed: () {
-                  context.read<CreatePostServices>().postImage(
-                        context,
-                        users.getUser.uid,
-                        users.getUser.username,
-                        users.getUser.photoUrl,
-                      );
-                },
-                child: const Text('Posting'),
-              ),
+              Consumer<CreatePostServices>(builder: (context, value, child) {
+                return ButtonWidget(
+                  sizeWidth: double.infinity,
+                  backgroundColor: MyColor.deepAqua,
+                  borderRadius: BorderRadius.circular(40),
+                  onPressed: () {
+                    context.read<CreatePostServices>().postImage(
+                          context,
+                          users.getUser.uid,
+                          users.getUser.username,
+                          users.getUser.photoUrl,
+                        );
+                  },
+                  child: value.postLoading
+                      ? LoadingWidget.whiteButtonLoading
+                      : const Text('Posting'),
+                );
+              }),
 
               const SizedBox(
                 height: 30,

@@ -9,7 +9,6 @@ class HomeServices with ChangeNotifier {
 
   get commentController => _commentController;
 
-
   /// post comment
   void postComment(context, dynamic postId, String uid, String name,
       String profilePic) async {

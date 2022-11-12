@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:pekaku_app/src/helper/text_editing_controller.dart';
+import 'package:pekaku_app/src/utils/text_editing_controller.dart';
 import 'package:pekaku_app/src/services/register_services/register_services.dart';
 import 'package:pekaku_app/src/utils/colors.dart';
 import 'package:pekaku_app/src/widgets/dialog/toast_allert.dart';
 
-class RegisterViewModel with ChangeNotifier{
+class RegisterViewModel with ChangeNotifier {
 
   late bool _scureRegisterPassword = true;
 
@@ -13,7 +13,6 @@ class RegisterViewModel with ChangeNotifier{
   get scureRegisterPassword => _scureRegisterPassword;
 
   get scureRegisterConfirmPassword => _scureRegisterConfirmPassword;
-
 
   /// visible password
   void visibleRegisterPassword() {
@@ -48,7 +47,7 @@ class RegisterViewModel with ChangeNotifier{
       toastAllert(
           'Password harus lebih dari 8 karakter', MyColor.errorColor, 1);
     } else {
-      RegisterServices().signUpUser();
+      RegisterServices().signUpUser(context);
     }
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pekaku_app/src/utils/colors.dart';
-import 'package:pekaku_app/src/view_model/account_view_model/account_view_model.dart';
+import 'package:pekaku_app/src/view_model/account_view_model.dart';
+import 'package:pekaku_app/src/view_model/navigasi_view_model/navigasi_view_model.dart';
 import 'package:provider/provider.dart';
 
 Future resetPasswordProfileDialog(BuildContext context) {
@@ -28,7 +29,8 @@ Future resetPasswordProfileDialog(BuildContext context) {
             ),
             CupertinoDialogAction(
               onPressed: () {
-                context.read<AccountViewModel>().checkerEmail();
+                AccountViewModel().checkerEmail();
+                context.read<NavigasiViewModel>().navigasiBack(context);
               },
               child: Text(
                 'Reset',

@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pekaku_app/src/helper/text_editing_controller.dart';
+import 'package:pekaku_app/src/services/account_services/account_services.dart';
+import 'package:pekaku_app/src/utils/text_editing_controller.dart';
 import 'package:pekaku_app/src/utils/colors.dart';
-import 'package:pekaku_app/src/view_model/account_view_model/account_view_model.dart';
 import 'package:pekaku_app/src/view_model/navigasi_view_model/navigasi_view_model.dart';
 import 'package:pekaku_app/src/widgets/account_widget/edit_birthday_profile.dart';
 import 'package:pekaku_app/src/widgets/account_widget/edit_gender_profile.dart';
@@ -320,7 +320,7 @@ class AccountProfileWidget extends StatelessWidget {
   /// widget edit profile
   Future profileDetail(context) {
     final accountProvider =
-        Provider.of<AccountViewModel>(context, listen: false);
+        Provider.of<AccountServices>(context, listen: false);
     final double paddingTop = MediaQuery.of(context).padding.top;
     final double sizeWidth = MediaQuery.of(context).size.width;
     return showModalBottomSheet(
